@@ -92,8 +92,22 @@ public class AddressBookMain {
 
         }
 
-
     }
+
+    public void remove(){
+        System.out.println("Enter Name of contact to be deleted from address book");
+       Scanner sc = new Scanner(System.in);
+       String check = sc.next();
+       for(int i = 0; i<ContactInfo.size(); i++){
+           String Check1 = ContactInfo.get(i).getName();
+           if(Check1.equals(check)){
+               ContactInfo.remove(i);
+           }
+       }
+        System.out.println(check+" Contact deleted");
+        System.out.println(ContactInfo);
+        }
+
     public static void main(String[] args) {
         AddressBookMain adm =  new AddressBookMain();
         System.out.println("Enter How many contacts you want to add");
@@ -109,6 +123,13 @@ public class AddressBookMain {
         if(check == 1) {
             adm.edit();
         }
+
+        System.out.println("To delete contact from address book press 1");
+        int check1 = sc.nextInt();
+        if(check1 == 1) {
+            adm.remove();
+        }
+
 
 
     }
