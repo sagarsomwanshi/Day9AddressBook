@@ -1,10 +1,7 @@
-import java.util.LinkedList;
-import java.util.Scanner;
-
 public class AddressBook {
-    String  name,lastName,address,city,state,email;
-    int zip;
-    long phone;
+    private String  name,lastName,address,city,state,email;
+    private int zip;
+    private long phone;
 
     public AddressBook(String name, String lastName, String address, String city, String state, String email, int zip, long phone) {
         this.name = name;
@@ -17,9 +14,7 @@ public class AddressBook {
         this.phone = phone;
     }
 
-    public AddressBook() {
 
-    }
 
     public String getName() {
         return name;
