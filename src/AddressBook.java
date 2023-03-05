@@ -2,7 +2,9 @@ public class AddressBook {
     private String  name,lastName,address,city,state,email;
     private int zip;
     private long phone;
+    public AddressBook(){
 
+    }
     public AddressBook(String name, String lastName, String address, String city, String state, String email, int zip, long phone) {
         this.name = name;
         this.lastName = lastName;
