@@ -1,7 +1,5 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class AddressBookMethods {
 
@@ -185,7 +183,7 @@ public class AddressBookMethods {
     }
 
     public void addressBookManagement() {
-        System.out.println("\n\nTo create new Address Book press 1\nTo Edit Existing Address book press 2\nTo view Address book press 3\nTo search any contact press 4\nTo count contact press 5\nTo close system press 6");
+        System.out.println("\n\nTo create new Address Book press 1\nTo Edit Existing Address book press 2\nTo view Address book press 3\nTo search any contact press 4\nTo count contact press 5\nTo Sort Address Book press 6\nTo close system press 7");
         Scanner sc = new Scanner(System.in);
         int optionCheck = sc.nextInt();
         switch (optionCheck) {
@@ -223,7 +221,10 @@ public class AddressBookMethods {
             case 5:
                 contactCount();
                 addressBookManagement();
-
+                break;
+            case 6 :
+                alphabeticalSort();
+                addressBookManagement();
                 break;
             default:
                 System.out.println("System Closed");
@@ -291,6 +292,15 @@ public class AddressBookMethods {
                 break;
         }
 
+    }
+
+    public void alphabeticalSort(){
+
+        for (String key : multipleAddressBook.keySet()) {
+            ArrayList<AddressBook> temp = multipleAddressBook.get(key);
+            List sortedList = temp.stream().sorted((f, s)-> f.getName().compareTo(s.getName())).collect(Collectors.toList());
+            System.out.println("Address book : "+key+"\nAfter Sorting Alphabetically : " +sortedList);
+        }
     }
 }
 
