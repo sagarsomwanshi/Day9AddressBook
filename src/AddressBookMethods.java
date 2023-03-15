@@ -183,7 +183,7 @@ public class AddressBookMethods {
     }
 
     public void addressBookManagement() {
-        System.out.println("\n\nTo create new Address Book press 1\nTo Edit Existing Address book press 2\nTo view Address book press 3\nTo search any contact press 4\nTo count contact press 5\nTo Sort Address Book press 6\nTo close system press 7");
+        System.out.println("\n\nTo create new Address Book press 1\nTo Edit Existing Address book press 2\nTo view Address book press 3\nTo search any contact press 4\nTo count contact press 5\nTo Sort Address Book press 6\nTo sort by zip press 7\nTo close system press 8");
         Scanner sc = new Scanner(System.in);
         int optionCheck = sc.nextInt();
         switch (optionCheck) {
@@ -224,6 +224,10 @@ public class AddressBookMethods {
                 break;
             case 6 :
                 alphabeticalSort();
+                addressBookManagement();
+                break;
+            case 7:
+                zipSort();
                 addressBookManagement();
                 break;
             default:
@@ -300,6 +304,14 @@ public class AddressBookMethods {
             ArrayList<AddressBook> temp = multipleAddressBook.get(key);
             List sortedList = temp.stream().sorted((f, s)-> f.getName().compareTo(s.getName())).collect(Collectors.toList());
             System.out.println("Address book : "+key+"\nAfter Sorting Alphabetically : " +sortedList);
+        }
+    }
+    public void zipSort(){
+
+        for (String key : multipleAddressBook.keySet()) {
+            ArrayList<AddressBook> temp = multipleAddressBook.get(key);
+            List zipSortedList = temp.stream().sorted((f,s)-> Long.valueOf(f.getZip()).compareTo(Long.valueOf(s.getZip()))).collect(Collectors.toList());
+            System.out.println("Address book : "+key+"\nAfter Sorting Alphabetically : " +zipSortedList);
         }
     }
 }
