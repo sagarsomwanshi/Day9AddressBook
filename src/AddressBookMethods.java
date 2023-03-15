@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -143,7 +144,7 @@ public class AddressBookMethods {
 
     }
 
-    public void contactManagement(String addressBookName) {
+    public void contactManagement(String addressBookName) throws IOException {
 
 
         Scanner sc = new Scanner(System.in);
@@ -182,8 +183,8 @@ public class AddressBookMethods {
         }
     }
 
-    public void addressBookManagement() {
-        System.out.println("\n\nTo create new Address Book press 1\nTo Edit Existing Address book press 2\nTo view Address book press 3\nTo search any contact press 4\nTo count contact press 5\nTo Sort Address Book press 6\nTo sort by zip press 7\nTo close system press 8");
+    public void addressBookManagement() throws IOException {
+        System.out.println("\n\nTo create new Address Book press 1\nTo Edit Existing Address book press 2\nTo view Address book press 3\nTo search any contact press 4\nTo count contact press 5\nTo Sort Address Book press 6\nTo sort by zip press 7\nTo save to file press 8\nTo read file press 9\nTo close system press 10");
         Scanner sc = new Scanner(System.in);
         int optionCheck = sc.nextInt();
         switch (optionCheck) {
@@ -230,6 +231,12 @@ public class AddressBookMethods {
                 zipSort();
                 addressBookManagement();
                 break;
+            case 8 :
+                writeToFile();
+                addressBookManagement();
+            case 9 :
+                readFile();
+                addressBookManagement();
             default:
                 System.out.println("System Closed");
                 System.exit(0);
@@ -313,6 +320,22 @@ public class AddressBookMethods {
             List zipSortedList = temp.stream().sorted((f,s)-> Long.valueOf(f.getZip()).compareTo(Long.valueOf(s.getZip()))).collect(Collectors.toList());
             System.out.println("Address book : "+key+"\nAfter Sorting Alphabetically : " +zipSortedList);
         }
+    }
+    public void writeToFile() throws IOException {
+        BufferedWriter toFile = new BufferedWriter(new FileWriter("C:\\Users\\sagar somwanshi\\IdeaProjects\\Day9AddressBook\\src\\addressbook.txt"));
+        for(Map.Entry<String,ArrayList>entry : multipleAddressBook.entrySet()){
+            toFile.write(entry.getKey() + ":" +entry.getValue());
+        }
+        toFile.flush();
+        toFile.close();
+    }
+    public void readFile() throws IOException {
+        BufferedReader fromFile = new BufferedReader(new FileReader("C:\\Users\\sagar somwanshi\\IdeaProjects\\Day9AddressBook\\src\\addressbook.txt"));
+        String r;
+        while(( r= fromFile.readLine()) != null){
+            System.out.println(r);
+        }
+        fromFile.close();
     }
 }
 
