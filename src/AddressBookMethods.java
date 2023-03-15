@@ -185,7 +185,7 @@ public class AddressBookMethods {
     }
 
     public void addressBookManagement() {
-        System.out.println("To create new Address Book press 1\nTo Edit Existing Address book press 2\nTo view Address book press 3\nTo search any contact press 4\nTo close system press 5");
+        System.out.println("\n\nTo create new Address Book press 1\nTo Edit Existing Address book press 2\nTo view Address book press 3\nTo search any contact press 4\nTo count contact press 5\nTo close system press 6");
         Scanner sc = new Scanner(System.in);
         int optionCheck = sc.nextInt();
         switch (optionCheck) {
@@ -219,6 +219,9 @@ public class AddressBookMethods {
                 break;
             case 4:
                 search();
+                addressBookManagement();
+            case 5:
+                contactCount();
                 addressBookManagement();
 
                 break;
@@ -258,6 +261,35 @@ public class AddressBookMethods {
 
 
 
+
+    }
+    public void contactCount() {
+
+        System.out.println("1 : Total contacts count of city \n2: Total contacts count of  state");
+        Scanner sc = new Scanner(System.in);
+        int option = sc.nextInt();
+        switch (option){
+            case 1 :
+                System.out.println("Enter city Name");
+
+                String city = sc.next();
+
+                for (String key : multipleAddressBook.keySet()) {
+                    ArrayList<AddressBook> temp = multipleAddressBook.get(key);
+                    System.out.println(temp.stream().filter(a -> a.getCity().equalsIgnoreCase(city)).count());
+                }
+                break;
+            case 2 :
+                System.out.println("Enter State Name");
+
+                String state = sc.next();
+
+                for (String key : multipleAddressBook.keySet()) {
+                    ArrayList<AddressBook> temp = multipleAddressBook.get(key);
+                    System.out.println(temp.stream().filter(a -> a.getState().equalsIgnoreCase(state)).count());
+                }
+                break;
+        }
 
     }
 }
