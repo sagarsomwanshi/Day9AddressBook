@@ -3,23 +3,23 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
 
-public class AddressBookMethods{
+public class AddressBookMethods {
 
 
-    HashMap<String,ArrayList> multipleAddressBook = new HashMap<>();
+    HashMap<String, ArrayList> multipleAddressBook = new HashMap<>();
 
 
-    public ArrayList<AddressBook> addContact(){
+    public ArrayList<AddressBook> addContact() {
 
         Scanner sc = new Scanner(System.in);
         Scanner scn = new Scanner(System.in);
         ArrayList<AddressBook> addContactTemp = new ArrayList<>();
-        String lastName=null,email =null,address=null,city = null,state=null;
-        int zip =0;
+        String lastName = null, email = null, address = null, city = null, state = null;
+        int zip = 0;
         long phone = 0;
         System.out.println("Enter how many contacts you want to add");
-        int num = scn.nextInt();
-        for(int i = 0; i< num; i++) {
+        int num = sc.nextInt();
+        for (int i = 0; i < num; i++) {
 
 
             System.out.println("Enter First Name ");
@@ -60,7 +60,7 @@ public class AddressBookMethods{
 
     }
 
-    public void edit(String addressBookName){
+    public void edit(String addressBookName) {
         Scanner sc = new Scanner(System.in);
         Scanner scn = new Scanner(System.in);
 
@@ -68,13 +68,13 @@ public class AddressBookMethods{
         System.out.println("Enter name of Contact to edit");
         String inputName = sc.next();
 
-        for(int i = 0; i<editTemp.size(); i++){
+        for (int i = 0; i < editTemp.size(); i++) {
             String nameCheck = editTemp.get(i).getName();
-            if(nameCheck.equalsIgnoreCase(inputName)){
+            if (nameCheck.equalsIgnoreCase(inputName)) {
                 System.out.println("To edit details you have to Enter number associated with Attribute");
                 System.out.println(" Name - 1\n Last Name - 2\n Address - 3\n City - 4\n State - 5\n Email - 6\n Zip - 7\n Phone - 8");
                 int num = sc.nextInt();
-                switch(num){
+                switch (num) {
                     case 1:
                         System.out.println("Enter new Name");
                         editTemp.get(i).setName(sc.next());
@@ -111,59 +111,60 @@ public class AddressBookMethods{
                         System.out.println("Invalid Input");
                         edit(addressBookName);
                 }
-                System.out.println("Updated Address book : "+editTemp);
+                System.out.println("Updated Address book : " + editTemp);
                 break;
-            }else{
+            } else {
                 System.out.println("Name Not found in address book");
             }
 
         }
-        multipleAddressBook.put(addressBookName,editTemp);
+        multipleAddressBook.put(addressBookName, editTemp);
 
     }
 
-    public void remove(String addressBookName){
+    public void remove(String addressBookName) {
 
         ArrayList<AddressBook> removeTemp = new ArrayList<>();
         removeTemp = multipleAddressBook.get(addressBookName);
         System.out.println("Enter Name of contact to be deleted from address book");
         Scanner sc = new Scanner(System.in);
         String inputName = sc.next();
-        for(int i = 0; i<removeTemp.size(); i++){
+        for (int i = 0; i < removeTemp.size(); i++) {
             String nameCheck = removeTemp.get(i).getName();
-            if(nameCheck.equals(inputName)){
+            if (nameCheck.equals(inputName)) {
                 removeTemp.remove(i);
-                System.out.println(inputName+" Contact deleted");
-            }else{
+                System.out.println(inputName + " Contact deleted");
+            } else {
                 System.out.println("Contact Name not found Please enter valid name");
                 remove(addressBookName);
             }
         }
 
         System.out.println(removeTemp);
-        multipleAddressBook.put(addressBookName,removeTemp);
+        multipleAddressBook.put(addressBookName, removeTemp);
 
     }
-    public void contactManagement(String addressBookName){
+
+    public void contactManagement(String addressBookName) {
 
 
-        Scanner sc =  new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
         System.out.println("\n\nTo edit contact press 1\nTo delete contact from address book press 2\nTo close this Address book Enter 3");
         int check = sc.nextInt();
-        switch (check){
-            case 1 :
+        switch (check) {
+            case 1:
                 edit(addressBookName);
                 contactManagement(addressBookName);
-            break;
+                break;
             case 2:
                 remove(addressBookName);
                 contactManagement(addressBookName);
-            break;
+                break;
             case 3:
                 System.out.println("This Address book closed");
                 addressBookManagement();
-            break;
+                break;
             default:
                 System.out.println("Invalid Input");
                 contactManagement(addressBookName);
@@ -171,30 +172,31 @@ public class AddressBookMethods{
         }
     }
 
-    public void multipleAddressBook(){
-        Scanner sc =  new Scanner(System.in);
+    public void multipleAddressBook() {
+        Scanner sc = new Scanner(System.in);
         System.out.println("Please Enter Address book name");
         String addressBookName = sc.nextLine();
-        if(multipleAddressBook.containsKey(addressBookName)){
+        if (multipleAddressBook.containsKey(addressBookName)) {
             System.out.println("Address Book already exist please Enter new Name");
             multipleAddressBook();
-        }else {
+        } else {
             multipleAddressBook.put(addressBookName, addContact());
         }
     }
-    public void addressBookManagement(){
+
+    public void addressBookManagement() {
         System.out.println("To create new Address Book press 1\nTo Edit Existing Address book press 2\nTo view Address book press 3\nTo search any contact press 4\nTo close system press 5");
         Scanner sc = new Scanner(System.in);
         int optionCheck = sc.nextInt();
-        switch (optionCheck){
-            case 1 :
+        switch (optionCheck) {
+            case 1:
                 multipleAddressBook();
                 addressBookManagement();
-            break;
+                break;
             case 2:
                 System.out.println("Enter Address book Name");
                 Scanner scn = new Scanner(System.in);
-                String addressBookName =  scn.nextLine();
+                String addressBookName = scn.nextLine();
                 contactManagement(addressBookName);
                 addressBookManagement();
                 break;
@@ -202,30 +204,61 @@ public class AddressBookMethods{
                 System.out.println("\nTo print all address book press 1\nTo print specific address book press 2 ");
                 Scanner scc = new Scanner(System.in);
                 int printOptionCheck = scc.nextInt();
-                    switch (printOptionCheck) {
-                        case 1 :
-                            System.out.println(multipleAddressBook);
+                switch (printOptionCheck) {
+                    case 1:
+                        System.out.println(multipleAddressBook);
                         break;
-                        case 2 :
-                            System.out.println("Enter Address book Name");
-                            String checkName = scc.nextLine();
-                            System.out.println(multipleAddressBook.get(checkName));
-                        default:
-                            System.out.println("Invalid Input");
-                    }
+                    case 2:
+                        System.out.println("Enter Address book Name");
+                        String checkName = scc.nextLine();
+                        System.out.println(multipleAddressBook.get(checkName));
+                    default:
+                        System.out.println("Invalid Input");
+                }
                 addressBookManagement();
-            break;
-            case 4 :
-                System.out.println("Enter name to search");
-                String searchName = sc.nextLine();
-//                search(searchName);
-            break;
+                break;
+            case 4:
+                search();
+                addressBookManagement();
+
+                break;
             default:
-            System.out.println("System Closed");
-            System.exit(0);
+                System.out.println("System Closed");
+                System.exit(0);
         }
     }
 
+    public void search() {
 
+        System.out.println("1 : Search by city name \n2: Search by state name");
+        Scanner sc = new Scanner(System.in);
+        int option = sc.nextInt();
+        switch (option){
+            case 1 :
+                System.out.println("Enter city Name");
+
+                String city = sc.next();
+
+                for (String key : multipleAddressBook.keySet()) {
+                    ArrayList<AddressBook> temp = multipleAddressBook.get(key);
+                    temp.stream().filter(a -> a.getCity().equalsIgnoreCase(city)).forEach(y -> System.out.println("Address book Name : "+key + "\n"+y + "\n"));
+                }
+                break;
+            case 2 :
+                System.out.println("Enter State Name");
+
+                String state = sc.next();
+
+                for (String key : multipleAddressBook.keySet()) {
+                    ArrayList<AddressBook> temp = multipleAddressBook.get(key);
+                    temp.stream().filter(a -> a.getState().equalsIgnoreCase(state)).forEach(y -> System.out.println("Address book Name : "+key + "\n"+y + "\n"));
+                }
+                break;
+        }
+
+
+
+
+    }
 }
 
